@@ -1,0 +1,24 @@
+{
+  "name": "dbwnl",
+  "version": "1.0.0",
+  "description": "公元1900-01-01至2099-12-31截止的日历信息，包含节气，数据库查询即可，无需天文等计算方式",
+  "main": "db3.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jkinfeng/DBWnl.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jkinfeng/DBWnl/issues"
+  },
+  "homepage": "https://github.com/jkinfeng/DBWnl#readme",
+  "dependencies": {
+    "better-sqlite3": "^7.1.0",
+    "datetime-helper": "0.0.2"
+  }
+}

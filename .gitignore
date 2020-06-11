@@ -1,0 +1,5 @@
+.idea/
+node_modules/
+wnl.json
+jq.json
+package-lock.json
