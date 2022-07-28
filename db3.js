@@ -1,9 +1,10 @@
 'use strict';
 
-require('datetime-helper');
+// require('datetime-helper');
 const wnl = require('./wnl');
 const jq = require('./jq');
 const sqlite3 = require('better-sqlite3');
+const dth = require('datetime-helper')
 const db = new sqlite3('wnl.db3');
 
 let createSql = 'CREATE TABLE IF NOT EXISTS perpetual_calendar (';
@@ -60,11 +61,14 @@ for (let i = 0; i < wnl.length; i++) {
         month: getGanZhiOrder(wnl[i].ygz),
         day: getGanZhiOrder(wnl[i].rgz),
         solar_term_name1: getJieQiMingOrder(jq[0]),
-        solar_term_datetime1: jq[1].getUnixTimeSec(),
+        // solar_term_datetime1: jq[1].getUnixTimeSec(),
+        solar_term_datetime1: dth.getUnixTimeSec(jq[1]),
         solar_term_name2: getJieQiMingOrder(jq[2]),
-        solar_term_datetime2: jq[3].getUnixTimeSec(),
+        // solar_term_datetime2: jq[3].getUnixTimeSec(),
+        solar_term_datetime2: dth.getUnixTimeSec(jq[3]),
         solar_term_name3: getJieQiMingOrder(jq[4]),
-        solar_term_datetime3: jq[5].getUnixTimeSec()
+        // solar_term_datetime3: jq[5].getUnixTimeSec()
+        solar_term_datetime3: dth.getUnixTimeSec(jq[5])
     });
 }
 
@@ -75,14 +79,17 @@ function getJieQi(x) {
     let a1 = x.split(',');
     let a1_0 = a1[0], a1_1 = '0' + a1[1], a1_2 = '0' + a1[2];
     let a2 = a1_0 + '-' + a1_1.substr(a1_1.length - 2, 2) + '-' + a1_2.substr(a1_2.length - 2, 2);
-    let a3 = new Date(a2).getUnixTimeSec();
+    // let a3 = new Date(a2).getUnixTimeSec();
+    let a3 = dth.getUnixTimeSec(new Date(a2));
 
     for (let jqinfo = jq.jq, j = 0; j < jqinfo.length; j++) {
         if (j + 1 === jqinfo.length) break;
         let a4 = jqinfo[j].split(' ');
         let a5 = jqinfo[j + 1].split(' ');
-        let a6 = a4[1].getUnixTimeSec();
-        let a7 = a5[1].getUnixTimeSec();
+        // let a6 = a4[1].getUnixTimeSec();
+        // let a7 = a5[1].getUnixTimeSec();
+        let a6 = dth.getUnixTimeSec(a4[1]);
+        let a7 = dth.getUnixTimeSec(a5[1]);
         if (a3 >= a6 && a3 < a7) {
             let tmpStr = jqinfo[j - 1] + ' ' + jqinfo[j] + ' ' + jqinfo[j + 1];
             let tmpArr = tmpStr.split(' ');
